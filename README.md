@@ -1,83 +1,107 @@
-🛡️ Sentry — AI-Powered Scam Detection
+# Sentry
 
-Real-time protection against digital arrest scams, financial fraud, and AI-generated voice impersonation.
+**Detect the threat. Verify the claim. Protect the person.**
 
-Sentry is an AI-powered scam detection system designed to protect older adults and less tech-confident individuals from fraudulent calls. It analyses conversations for suspicious behaviour, verifies callers’ claims using official sources, and provides timely warnings to help users make safer decisions.
+Sentry is an AI-powered scam detection tool that warns people during suspicious calls, before they share sensitive details or send money. It is built for older adults and less tech-confident users, who are the most common targets of fake police calls, bank impersonation, "digital arrest" threats and AI-cloned voices.
 
-🚨 Problem Statement
+Team: Binary Biryani | Track: AI/ML | Team Leader: Harleen Kaur
 
-Scammers exploit fear, urgency, and trust to manipulate victims into sharing sensitive information or transferring money. Traditional caller ID applications cannot reliably detect scams based on conversational context or verify every claim made by a caller.
+---
 
-Sentry addresses this gap by analysing what a caller says, identifying pressure tactics, and verifying claims before the victim acts.
+## The Problem
 
-💡 Our Solution
+Most phone scams work because of pressure, not technology. The caller poses as an official, threatens arrest or financial loss, demands immediate action and tells the victim not to talk to anyone. Under that pressure, people comply before they can cross-check.
 
-Sentry follows a three-step approach:
+Existing tools don't solve this well:
 
-* Detect: Analyses live or recorded audio for threats, urgency, secrecy, suspicious payment requests, and potential AI-generated voices.
-* Verify: Uses TinyFish to check extracted claims against official websites, contact details, and public scam advisories.
-* Protect: Displays explainable risk warnings, provides verified contact details, and optionally alerts a trusted family member with consent.
+- **Caller ID apps** only flag known numbers. They miss numbers a victim dials themselves, and they ignore what is actually said on the call.
+- **Official advice** such as "never trust unknown callers" is hard to follow in the moment, and official helpline numbers are often buried several clicks deep.
 
-✨ Key Features
+Victims need a clear warning during the conversation, not after the money has left their account.
 
-* Real-Time Scam Detection: Identifies suspicious conversational patterns and requests for money or OTPs.
-* Call Recording Analysis: Analyses uploaded call recordings and WhatsApp voice notes to generate scam reports.
-* Claim Verification: Checks callers’ claims against official sources and flags mismatches.
-* AI Voice Detection: Estimates the likelihood of synthetic voice generation as an additional risk signal.
-* Risk Assessment: Classifies potential threats as Low, Medium, High, or Critical.
-* Trusted-Family Alerts: Sends optional alerts when high-risk activity is detected.
-* Privacy-Conscious Processing: Keeps raw audio and transcripts on-device; only extracted claims are sent for web verification.
+## What Sentry Does
 
-⚙️ How It Works
+Sentry works in three steps.
 
-1. Audio is processed and converted into text.
-2. AI models analyse conversational patterns and assess voice authenticity.
-3. Relevant claims, such as institution names and phone numbers, are extracted.
-4. TinyFish retrieves information from official sources to support claim verification.
-5. A risk engine combines the available signals to generate an explainable risk score.
-6. The user receives a warning and guidance on verifying the caller independently.
+**1. Detect**
+Sentry analyses a call for scam patterns: claims of authority, threats, urgency, requests for secrecy, and demands for money or OTPs. It also estimates whether a voice may be AI-generated.
 
-🧠 Technology Stack
+**2. Verify**
+Claims made by the caller, such as the institution name, phone number or UPI ID, are checked against official websites and public scam advisories using TinyFish.
 
-Component	Technologies
-Speech Processing	Whisper, Silero VAD
-AI & NLP	PyTorch, IndicBERT/mBERT, LLMs
-Web Verification	TinyFish Search, Fetch, Agent
-Backend	FastAPI, WebSockets, Redis, PostgreSQL
-Frontend	React
-Notifications	Push and WhatsApp alerts
+**3. Protect**
+The user gets a plain-language warning with the reasons behind it, the verified official number to call back, and, if they choose, an alert sent to a trusted family member.
 
-The technologies listed represent the proposed system architecture; actual implementation may vary.
+## Three Ways to Use It
 
-🔒 Privacy & Safety
+| Mode | When to use it | What you get |
+|---|---|---|
+| **Live Protection** | A suspicious call is happening now | Real-time transcription and a rolling risk score as the conversation develops |
+| **Analyse a Recording** | You have a call recording or WhatsApp voice note | A full report with timestamped red flags, scam type and a final verdict |
+| **Check a Caller** | You got a call but didn't record it | Enter the caller's claimed identity, number, UPI ID or link, and what they asked you to do. Sentry checks the details and returns a risk score with reasons |
 
-Sentry is designed with privacy and responsible detection in mind:
+## Key Features
 
-* Raw audio and transcripts are not sent to TinyFish.
-* Voice-clone detection is treated as a supporting signal, not definitive proof of fraud.
-* Claim verification relies on official sources wherever possible.
-* Family alerts are optional and consent-based.
-* Risk warnings explain the suspicious patterns or claim mismatches detected.
+- **Scam pattern detection** across Hindi, English and Hinglish, tracking how a call escalates from authority to fear, urgency, secrecy and payment
+- **Claim verification** against official sources, with mismatches flagged clearly
+- **Explainable risk levels** (Low, Medium, High, Critical), always shown with reasons
+- **AI voice score** as a supporting signal, not a final verdict
+- **Trusted-family alerts**, optional and consent-based
+- **Emergency guidance** after a loss: call 1930, block the card and file a complaint
 
-🎯 Target Users
+## How It Works
 
-* Older adults vulnerable to impersonation scams.
-* People less familiar with digital fraud tactics.
-* Individuals receiving frequent calls from unknown numbers.
-* Families and caregivers seeking additional protection for loved ones.
+1. Audio is captured and converted to text, with voice activity detection to isolate speech.
+2. A multilingual classifier analyses the conversation for scam patterns, while a separate model scores voice authenticity.
+3. An LLM extracts checkable claims such as institution names, phone numbers, UPI IDs and links.
+4. TinyFish Search, Fetch and Agent verify those claims against official sources and public advisories.
+5. A risk engine combines all signals into one risk level with reasons.
+6. The user receives a warning and clear steps to verify the caller independently.
 
-🌍 Expected Impact
+## Tech Stack
 
-Sentry aims to create a crucial pause between a scammer’s manipulation and a victim’s financial decision. By combining conversational analysis, voice-authenticity signals, and web-based claim verification, it helps users recognise suspicious calls and verify information before taking action.
+| Area | Technologies |
+|---|---|
+| Speech and audio | Whisper, Silero VAD |
+| AI and NLP | PyTorch, IndicBERT / mBERT, LLM for claim extraction |
+| Web verification | TinyFish Search, Fetch, Agent |
+| Backend | FastAPI, WebSockets, Redis, PostgreSQL |
+| Frontend | React |
+| Notifications | Push and WhatsApp alerts |
 
-🚀 Future Scope
+*This reflects the proposed architecture. The final implementation may differ.*
 
-* Improved detection across Indian languages and regional accents.
-* Enhanced integration with mobile calling systems.
-* More robust detection of AI-generated voices.
-* Expanded scam intelligence using verified public advisories.
-* Testing across genuine urgent calls and different scam scenarios to reduce false alarms.
+## Privacy and Safety
 
-⸻
+- Raw audio and transcripts are not sent to TinyFish. Only the extracted claims (institution name, phone number, UPI ID, link and claim type) are sent for verification.
+- Voice-clone detection is one signal among several. It is never treated as proof of fraud on its own.
+- Verification relies on official sources wherever possible.
+- Family alerts are optional and require the user's consent.
+- Every warning explains which patterns or claim mismatches triggered it.
 
-Sentry — Detect the threat. Verify the claim. Protect the person.
+## Who It's For
+
+- **Primary users:** older adults, people less familiar with digital fraud, and anyone who frequently receives unknown calls
+- **Secondary users:** families and caregivers, and bank fraud and cybercrime teams through evidence reports
+
+## Expected Impact
+
+Sentry aims to create a pause between a scammer's pressure and a victim's decision. By combining conversation analysis, voice signals and live claim verification, it helps people recognise a suspicious call and confirm the facts before they act.
+
+We plan to measure this through scam-detection accuracy, false-positive rate, warning latency, claim-verification accuracy and user comprehension.
+
+## Prototype Scope
+
+A working prototype can demonstrate detection without direct access to ordinary cellular calls. Sentry is tested through prerecorded scam audio, live microphone or simulated call audio, and manual caller checks. Validation uses scam conversations, genuine urgent calls and AI-generated voice samples, to measure accuracy and keep false alarms low.
+
+## Future Scope
+
+- Better detection across more Indian languages and regional accents
+- Closer integration with mobile calling systems
+- More robust detection of AI-generated voices
+- A scam-script library kept current through human-reviewed public advisories
+- Wider testing on genuine urgent calls to further reduce false alarms
+
+---
+
+**Sentry** | Detect the threat. Verify the claim. Protect the person.
