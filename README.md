@@ -103,5 +103,8 @@ A working prototype can demonstrate detection without direct access to ordinary 
 - Wider testing on genuine urgent calls to further reduce false alarms
 
 ---
+**Demo video** : https://drive.google.com/drive/folders/1JmmiIG9xpPjYtNg1QVgSMRFg9XH3ZDui
+
+
 
 **Sentry** | Detect the threat. Verify the claim. Protect the person.
